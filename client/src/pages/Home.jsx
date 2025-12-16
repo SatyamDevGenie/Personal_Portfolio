@@ -77,7 +77,7 @@ export default function Home() {
       <section id="home" className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 items-center">
         <div className="space-y-3 sm:space-y-4 motion-safe:animate-slide-up">
           <p className="text-xs uppercase tracking-[0.3em] text-emerald-300">Full-Stack MERN • 2026</p>
-          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight neon">Building production-ready MERN applications with clean, modern UIs.</h1>
+          <h1 className="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-bold leading-tight neon">Building production-ready MERN applications with clean, modern UIs.</h1>
           <p className="text-sm sm:text-base text-slate-300">I'm a full-stack MERN developer focused on scalable APIs, pixel-perfect React frontends, and smooth developer experience.</p>
         </div>
         <div className="border border-slate-800 rounded-2xl sm:rounded-3xl p-4 sm:p-6 bg-slate-900/60 space-y-3 sm:space-y-4 motion-safe:animate-pop glow">
@@ -214,21 +214,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" className="space-y-3 sm:space-y-4 motion-safe:animate-fade-in">
-        <h2 className="text-2xl sm:text-3xl font-bold">Contact</h2>
-        <div className="grid grid-cols-1 md:grid-cols-[1.1fr,0.9fr] gap-4 sm:gap-6 items-start">
-          <form onSubmit={handleContact} className="space-y-2 sm:space-y-3 border border-slate-800 rounded-xl sm:rounded-2xl p-4 bg-slate-900/60 motion-safe:animate-pop">
-            <input name="name" placeholder="Your name" className="w-full rounded-lg px-3 py-2 bg-slate-950 border border-slate-800 text-xs sm:text-sm" required />
-            <input name="email" type="email" placeholder="you@example.com" className="w-full rounded-lg px-3 py-2 bg-slate-950 border border-slate-800 text-xs sm:text-sm" required />
-            <textarea name="message" rows={4} placeholder="Tell me about your project..." className="w-full rounded-lg px-3 py-2 bg-slate-950 border border-slate-800 text-xs sm:text-sm" required />
-            <button type="submit" className="w-full rounded-full bg-emerald-500 text-slate-900 font-semibold py-2 text-sm hover:bg-emerald-400 transition">Send message</button>
-          </form>
-          <div className="border border-slate-800 rounded-xl sm:rounded-2xl p-4 bg-slate-900/60 text-xs sm:text-sm text-slate-300">
-            <p>I usually respond within 24 hours. Share your timeline, budget range, and what success looks like for you.</p>
-          </div>
-        </div>
-      </section>
+
     </main>
   );
 }
