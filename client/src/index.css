@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base typography and theme */
+:root {
+  --app-accent: #10b981;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-950 text-slate-50;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Gentle transitions and reduced-motion support */
+* {
+  transition: background-color 180ms ease, color 180ms ease, transform 200ms ease, box-shadow 180ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Shimmer background for hero/CTA */
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.06) 20%, rgba(255,255,255,0.03) 40%, rgba(255,255,255,0.03) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s linear infinite;
+}
+
+/* Neon text helper */
+.neon {
+  color: #e6fff2;
+  animation: neon 2.5s ease-in-out infinite;
+}
+
+/* Soft glow for cards */
+.glow {
+  box-shadow: 0 6px 18px rgba(2,6,23,0.6), 0 2px 6px rgba(16,185,129,0.04);
+}
+
+/* Organic floating background */
+.blob {
+  animation: blob 8s ease-in-out infinite;
+}
+
+/* Fancy CTA button */
+.cta {
+  background: linear-gradient(90deg, rgba(16,185,129,1) 0%, rgba(56,189,248,1) 100%);
+  color: #052024;
+  box-shadow: 0 8px 30px rgba(16,185,129,0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+.cta:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 40px rgba(16,185,129,0.18); }
+
+/* Small utility for heading font (Poppins) */
+.font-heading { font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+
+
+
