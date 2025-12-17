@@ -1,10 +1,10 @@
 // src/index.js
 
-require("dotenv").config({ path: require('path').resolve(__dirname, '..', '.env') });
+require("dotenv").config({ path: require("path").resolve(__dirname, "..", ".env") });
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const path = require('path'); // Added for path resolution
+const path = require("path");
 
 // --- Route Imports ---
 const serviceRoutes = require("./routes/services");
@@ -15,20 +15,40 @@ const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
 
 const app = express();
-
 const PORT = process.env.PORT || 5000;
 const MONGODB_URI = process.env.MONGODB_URI;
 
-// --- Middleware Setup ---
+// --- CORS Configuration ---
+const allowedOrigins = [
+  "http://localhost:5173", // Local frontend
+  "https://kaleidoscopic-pixie-5f43f8.netlify.app/" // Netlify deployed frontend
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (Postman, mobile apps, server-to-server)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
-app.use(express.json());
 
-// --- Root Endpoint ---
+// --- Handle preflight requests ---
+app.options("*", cors());
+
+// --- Middleware ---
+app.use(express.json()); // parse JSON bodies
+
+// --- Root endpoint ---
 app.get("/", (_req, res) => {
   res.json({ ok: true, message: "Portfolio API running" });
 });
@@ -41,12 +61,9 @@ app.use("/api/contacts", contactRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 
-// --- MongoDB Connection & Server Start ---
+// --- MongoDB Connection ---
 if (!MONGODB_URI) {
-  // Better error message reflecting the fix
-  console.error(
-    "Missing MONGODB_URI in .env file. Ensure .env is in the server directory."
-  );
+  console.error("Missing MONGODB_URI in .env file. Ensure .env exists in server folder.");
   process.exit(1);
 }
 
@@ -55,10 +72,10 @@ mongoose
   .then(() => {
     console.log("MongoDB connected");
     app.listen(PORT, () => {
-      console.log(`API server running on http://localhost:${PORT}`);
+      console.log(`API server running on port ${PORT}`);
     });
   })
   .catch((err) => {
-    console.error("Mongo connection error", err);
+    console.error("Mongo connection error:", err);
     process.exit(1);
   });
