@@ -2,64 +2,55 @@ const router = require("express").Router();
 const Contact = require("../models/Contact");
 const nodemailer = require("nodemailer");
 
-console.log("Initializing email transporter...");
-console.log("ADMIN_EMAIL:", process.env.ADMIN_EMAIL);
-console.log("ADMIN_EMAIL_PASSWORD exists:", !!process.env.ADMIN_EMAIL_PASSWORD);
-
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+  service: "gmail",
   auth: {
     user: process.env.ADMIN_EMAIL,
     pass: process.env.ADMIN_EMAIL_PASSWORD,
   },
 });
 
-// Verify connection
-transporter.verify((err, success) => {
+// Verify transporter ONCE
+transporter.verify((err) => {
   if (err) {
-    console.error("Email transporter verification failed:", err);
+    console.error("❌ Email transporter error:", err);
   } else {
-    console.log("Email transporter verified successfully");
+    console.log("✅ Email transporter ready");
   }
 });
 
 router.post("/", async (req, res) => {
   const { name, email, message } = req.body;
+
   if (!name || !email || !message) {
     return res.status(400).json({ error: "All fields required" });
   }
 
   try {
-    const created = await Contact.create({ name, email, message });
-    console.log("Contact saved to database:", created);
+    const saved = await Contact.create({ name, email, message });
 
-    const mailOptions = {
-      from: process.env.ADMIN_EMAIL,
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${process.env.ADMIN_EMAIL}>`,
       to: process.env.ADMIN_EMAIL,
-      subject: `New contact from ${name}`,
-      text: `You received a new message from ${name} <${email}>:\n\n${message}`,
-      html: `<p>You received a new message from <strong>${name}</strong> &lt;${email}&gt;:</p><p>${message}</p>`,
-    };
-
-    transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        console.error("Error sending contact email:", err);
-      } else {
-        console.log("Contact email sent successfully:", info.response);
-      }
+      subject: `New Contact: ${name}`,
+      html: `
+        <h3>New Contact Message</h3>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
     });
 
-    res.status(201).json({ success: true, message: "Message received", data: created });
+    res.status(201).json({
+      success: true,
+      message: "Message sent successfully",
+    });
   } catch (err) {
-    console.error("Error in contacts endpoint:", err);
-    res.status(500).json({ error: "Server error", details: err.message });
+    console.error("❌ Contact API error:", err);
+    res.status(500).json({ error: "Server error" });
   }
 });
 
 module.exports = router;
-
-
-
 

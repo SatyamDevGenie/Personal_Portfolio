@@ -25,7 +25,7 @@ function App() {
   const [registerError, setRegisterError] = useState("");
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 animate-fade-in">
+    <div className="min-h-screen bg-black text-white animate-fade-in">
       <Header onLogin={() => { setShowAuthModal(true); setAuthTab("login"); }} />
 
       <Suspense fallback={<div className="py-20 text-center">Loading...</div>}>
