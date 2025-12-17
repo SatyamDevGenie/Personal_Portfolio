@@ -22,7 +22,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const res = await apiClient.post("/api/auth/login", {
+      const res = await apiClient.post("https://personal-portfolio-4-6sjn.onrender.com/api/auth/login", {
         username,
         password,
       });

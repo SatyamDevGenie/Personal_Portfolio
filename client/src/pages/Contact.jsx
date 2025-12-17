@@ -7,7 +7,7 @@ export default function Contact() {
     e.preventDefault();
     const fd = new FormData(e.target);
     try {
-      await axios.post("/api/contacts", { name: fd.get("name"), email: fd.get("email"), message: fd.get("message") });
+      await axios.post("https://personal-portfolio-4-6sjn.onrender.com/api/contacts", { name: fd.get("name"), email: fd.get("email"), message: fd.get("message") });
       e.target.reset();
       toast.success("Message sent");
     } catch (err) {

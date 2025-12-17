@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-const API = "http://localhost:5000/api/services";
+const API = "https://personal-portfolio-4-6sjn.onrender.com/api/services";
 
 const getAuthHeader = () => {
   const token = localStorage.getItem("token");
