@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create axios instance with default headers
 const apiClient = axios.create({
-  baseURL: "http://localhost:5000",
+  baseURL: "https://personal-portfolio-4-6sjn.onrender.com",
   headers: {
     "Content-Type": "application/json"
   }
@@ -22,7 +22,7 @@ export const login = createAsyncThunk(
   "auth/login",
   async ({ username, password }, { rejectWithValue }) => {
     try {
-      const res = await apiClient.post("https://personal-portfolio-4-6sjn.onrender.com/api/auth/login", {
+      const res = await apiClient.post("/api/auth/login", {
         username,
         password,
       });
