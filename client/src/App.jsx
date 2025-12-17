@@ -104,7 +104,7 @@ function App() {
                   const username = fd.get("reg-username");
                   const password = fd.get("reg-password");
                   try {
-                    const res = await axios.post("/api/auth/register", { username, password });
+                    const res = await axios.post("https://personal-portfolio-4-6sjn.onrender.com/api/auth/register", { username, password });
                     alert(`Registered ${res.data.user.username}. Now login.`);
                     setAuthTab("login");
                   } catch (err) {
