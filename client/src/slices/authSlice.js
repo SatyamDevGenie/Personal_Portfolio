@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Create axios instance with default headers
 const apiClient = axios.create({
-  baseURL: "https://personal-portfolio-4-6sjn.onrender.com",
+  baseURL: import.meta.env.VITE_API_URL,
   headers: {
     "Content-Type": "application/json"
   }
