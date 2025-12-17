@@ -12,8 +12,8 @@ export default function Header({ onLogin }) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
+    <header className="sticky top-0 z-50 bg-black backdrop-blur border-b border-slate-800">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-5">
         <span className="text-sm sm:text-base font-heading font-bold tracking-tight motion-safe:animate-pop">Satyam Software Solutions</span>
 
         {/* Desktop Navigation */}

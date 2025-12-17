@@ -9,13 +9,13 @@ export default function Footer() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                 {/* Name and Copyright */}
-                <p className="font-sans text-xl font-bold text-slate-100 mb-2">
-                    @ {new Date().getFullYear()} Satyam Software Solutions
+                <p className="font-sans text-xl font-extrabold text-slate-100 mb-2">
+                     Satyam Subhash Sawant
                 </p>
 
                 {/* Title */}
                 <p className="text-sm text-slate-400 mb-3">
-                    AI Software Developer - (MERN)
+                    AI Software Developer - MERN STACK + Agentic AI
                 </p>
 
                 {/* Email */}
