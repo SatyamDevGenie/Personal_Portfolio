@@ -4,7 +4,7 @@ import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify"; // Added toast import
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useDispatch } from "react-redux";
@@ -44,7 +44,7 @@ function App() {
 
       <Footer />
 
-      <ToastContainer position="top-right" />
+      <ToastContainer position="top-right" theme="dark" />
 
       {/* Auth Modal */}
       {showAuthModal && (
@@ -53,7 +53,6 @@ function App() {
 
           <div className="relative w-full max-w-lg bg-gradient-to-b from-slate-900/80 via-slate-950/80 to-slate-900/80 border border-slate-800 rounded-2xl p-1 shadow-2xl">
             <div className="relative overflow-hidden rounded-2xl bg-slate-950 p-5 sm:p-6 max-h-[88vh] overflow-y-auto">
-              {/* decorative blob */}
               <div className="absolute -right-16 -top-20 w-56 h-56 bg-gradient-to-br from-emerald-500/20 to-sky-400/12 rounded-full blur-3xl opacity-60 blob pointer-events-none" />
 
               <div className="flex items-center justify-between mb-4">
@@ -71,8 +70,8 @@ function App() {
               </div>
 
               <div className="mb-4 flex gap-2">
-                <button onClick={() => setAuthTab("login")} className={`flex-1 text-sm py-2 rounded-lg ${authTab==="login"? 'bg-emerald-600 text-slate-900 font-semibold':'bg-slate-800 text-slate-300'}`}>Login</button>
-                <button onClick={() => setAuthTab("register")} className={`flex-1 text-sm py-2 rounded-lg ${authTab==="register"? 'bg-emerald-600 text-slate-900 font-semibold':'bg-slate-800 text-slate-300'}`}>Register</button>
+                <button onClick={() => setAuthTab("login")} className={`flex-1 text-sm py-2 rounded-lg ${authTab === "login" ? 'bg-emerald-600 text-slate-900 font-semibold' : 'bg-slate-800 text-slate-300'}`}>Login</button>
+                <button onClick={() => setAuthTab("register")} className={`flex-1 text-sm py-2 rounded-lg ${authTab === "register" ? 'bg-emerald-600 text-slate-900 font-semibold' : 'bg-slate-800 text-slate-300'}`}>Register</button>
               </div>
 
               {authTab === "login" ? (
@@ -84,17 +83,18 @@ function App() {
                   const password = fd.get("password");
                   const result = await dispatch(login({ username, password }));
                   if (result.type === login.fulfilled.type) {
+                    toast.success(`Welcome Back`); // Success Toast
                     setShowAuthModal(false);
                   } else {
-                    setLoginError(result.payload || result.error?.message || "Login failed");
+                    const errMsg = result.payload || result.error?.message || "Login failed";
+                    setLoginError(errMsg);
+                    toast.error(errMsg); // Error Toast
                   }
                 }} className="space-y-4">
                   {loginError && <div className="p-2 bg-red-900/40 text-red-300 rounded text-sm">{loginError}</div>}
                   <input name="username" placeholder="username" className="w-full rounded-md px-3 py-2 bg-slate-900 border border-slate-800 text-sm" />
                   <input name="password" type="password" placeholder="password" className="w-full rounded-md px-3 py-2 bg-slate-900 border border-slate-800 text-sm" />
                   <button className="w-full rounded-full cta py-2 font-semibold text-sm">Sign in</button>
-
-                  {/* social buttons removed per user request */}
                 </form>
               ) : (
                 <form onSubmit={async (e) => {
@@ -105,10 +105,12 @@ function App() {
                   const password = fd.get("reg-password");
                   try {
                     const res = await axios.post("https://personal-portfolio-4-6sjn.onrender.com/api/auth/register", { username, password });
-                    alert(`Registered ${res.data.user.username}. Now login.`);
+                    toast.success(`Account created for ${res.data.user.username}`); // Success Toast
                     setAuthTab("login");
                   } catch (err) {
-                    setRegisterError(err.response?.data?.message || err.message);
+                    const errMsg = err.response?.data?.message || err.message;
+                    setRegisterError(errMsg);
+                    toast.error(errMsg); // Error Toast
                   }
                 }} className="space-y-4">
                   {registerError && <div className="p-2 bg-red-900/40 text-red-300 rounded text-sm">{registerError}</div>}
@@ -126,6 +128,9 @@ function App() {
 }
 
 export default App;
+
+
+
 
 
 
