@@ -1,7 +1,6 @@
 import React, { useState, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import Header from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import { ToastContainer, toast } from "react-toastify"; // Added toast import
@@ -42,7 +41,6 @@ function App() {
         </Routes>
       </Suspense>
 
-      <Footer />
 
       <ToastContainer position="top-right" theme="dark" />
 
@@ -128,6 +126,8 @@ function App() {
 }
 
 export default App;
+
+
 
 
 
