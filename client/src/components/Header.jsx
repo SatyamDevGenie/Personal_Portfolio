@@ -4,7 +4,7 @@ import { logout } from "../slices/authSlice.js";
 import { NavLink } from "react-router-dom";
 
 // **CORRECTED IMPORT FOR: src/pages/Header.jsx -> src/resume/Satyam_CV.pdf**
-import resumeFile from "../resume/Satyam_CV.pdf";
+import resumeFile from "../resume/Satyam Sawant CV.pdf";
 
 export default function Header({ onLogin }) {
   const auth = useSelector((s) => s.auth);
@@ -28,7 +28,7 @@ export default function Header({ onLogin }) {
           {/* Resume Download - Desktop: Use imported variable */}
           <a
             href={resumeFile} // <--- CHANGED TO USE imported variable
-            download="Satyam_CV.pdf" // <--- Optional: Set the downloaded filename
+            download="Satyam Sawant CV.pdf" // <--- Optional: Set the downloaded filename
             className="px-3 py-1 rounded-full cta text-slate-900 font-semibold text-xs hover:scale-[1.01] transition"
           >
             CV
