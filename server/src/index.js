@@ -21,7 +21,7 @@ const MONGODB_URI = process.env.MONGODB_URI;
 // --- CORS Configuration ---
 const allowedOrigins = [
   "http://localhost:5173", // Local frontend
-  "https://satyam-sawant.netlify.app" // Netlify deployed frontend
+  "https://satyam-developer.netlify.app" // Netlify deployed frontend
 ];
 
 app.use(
